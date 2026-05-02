@@ -1,0 +1,16 @@
+id: /vercel/next.js_v15
+name: Next.js v15
+repo: vercel/next.js
+description: The React Framework for the Web (v15)
+doc_source:
+  type: repo_path
+  repo: vercel/next.js
+  path: docs
+  extensions:
+    - .md
+    - .mdx
+  ref: v15.6.0-canary.0
+filters:
+  exclude:
+    - "**/ja/**"
+license: MIT

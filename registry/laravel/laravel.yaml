@@ -1,0 +1,14 @@
+id: /laravel/laravel
+name: Laravel
+repo: laravel/laravel
+description: The PHP Framework for Web Artisans
+doc_source:
+  type: separate_repo
+  repo: laravel/docs
+  path: .
+  extensions:
+    - .md
+  ref: 13.x
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,14 @@
+id: /facebook/react_v18
+name: React v18
+repo: facebook/react
+description: A JavaScript library for building user interfaces (v18)
+doc_source:
+  type: separate_repo
+  repo: reactjs/react.dev
+  path: src/content
+  extensions:
+    - .md
+  ref: v18
+filters:
+  exclude: []
+license: MIT

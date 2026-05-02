@@ -1,0 +1,14 @@
+id: /nestjs/nest
+name: NestJS
+repo: nestjs/nest
+description: A progressive Node.js framework for building efficient applications
+doc_source:
+  type: separate_repo
+  repo: nestjs/docs.nestjs.com
+  path: content
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,138 @@
+{
+  "$defs": {
+    "DocSource": {
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/DocSourceType",
+          "description": "Doc source type"
+        },
+        "repo": {
+          "description": "Repository to clone (required for all types)",
+          "title": "Repo",
+          "type": "string"
+        },
+        "path": {
+          "description": "Docs folder path",
+          "title": "Path",
+          "type": "string"
+        },
+        "extensions": {
+          "description": "File extensions",
+          "items": {
+            "type": "string"
+          },
+          "title": "Extensions",
+          "type": "array"
+        },
+        "ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Git branch or tag (default: repo's default branch)",
+          "title": "Ref"
+        }
+      },
+      "required": [
+        "type",
+        "repo",
+        "path",
+        "extensions"
+      ],
+      "title": "DocSource",
+      "type": "object"
+    },
+    "DocSourceType": {
+      "enum": [
+        "repo_path",
+        "separate_repo"
+      ],
+      "title": "DocSourceType",
+      "type": "string"
+    },
+    "Filters": {
+      "properties": {
+        "include": {
+          "description": "Glob patterns to include",
+          "items": {
+            "type": "string"
+          },
+          "title": "Include",
+          "type": "array"
+        },
+        "exclude": {
+          "description": "Glob patterns to exclude",
+          "items": {
+            "type": "string"
+          },
+          "title": "Exclude",
+          "type": "array"
+        }
+      },
+      "title": "Filters",
+      "type": "object"
+    }
+  },
+  "description": "Library definition schema.",
+  "properties": {
+    "id": {
+      "description": "Unique ID",
+      "pattern": "^/[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+(/[a-zA-Z0-9_-]+)?$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "description": "Human-readable name",
+      "title": "Name",
+      "type": "string"
+    },
+    "repo": {
+      "description": "Upstream repository (metadata, not used in CI)",
+      "pattern": "^[a-zA-Z0-9_-]+/[a-zA-Z0-9_.-]+$",
+      "title": "Repo",
+      "type": "string"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Short description",
+      "title": "Description"
+    },
+    "doc_source": {
+      "$ref": "#/$defs/DocSource",
+      "description": "Doc source (single source)"
+    },
+    "filters": {
+      "$ref": "#/$defs/Filters",
+      "description": "File filters"
+    },
+    "license": {
+      "description": "License identifier",
+      "title": "License",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "repo",
+    "doc_source",
+    "license"
+  ],
+  "title": "LibraryDefinition",
+  "type": "object",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/likeablob/oss-doc-search-cli/main/schema/library.json"
+}

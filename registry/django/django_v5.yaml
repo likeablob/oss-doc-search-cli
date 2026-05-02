@@ -1,0 +1,15 @@
+id: /django/django_v5
+name: Django v5
+repo: django/django
+description: The web framework for perfectionists with deadlines (v5)
+doc_source:
+  type: repo_path
+  repo: django/django
+  path: docs
+  extensions:
+    - .rst
+    - .txt
+  ref: stable/5.2.x
+filters:
+  exclude: []
+license: BSD-3-Clause

@@ -1,0 +1,14 @@
+id: /solidjs/solid
+name: Solid
+repo: solidjs/solid
+description: Simple and performant reactivity for building user interfaces
+doc_source:
+  type: separate_repo
+  repo: solidjs/solid-docs
+  path: src/routes
+  extensions:
+    - .mdx
+filters:
+  exclude:
+    - v2/**
+license: MIT

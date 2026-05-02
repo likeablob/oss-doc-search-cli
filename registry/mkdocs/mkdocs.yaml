@@ -1,0 +1,14 @@
+id: /mkdocs/mkdocs
+name: MkDocs
+repo: mkdocs/mkdocs
+description: Project documentation with Markdown
+doc_source:
+  type: repo_path
+  repo: mkdocs/mkdocs
+  path: docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: BSD-2-Clause

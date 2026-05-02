@@ -1,0 +1,19 @@
+id: /vuejs/vitepress
+name: VitePress
+repo: vuejs/vitepress
+description: Vite-powered Static Site Generator
+doc_source:
+  type: repo_path
+  repo: vuejs/vitepress
+  path: docs/en
+  extensions:
+    - .md
+filters:
+  exclude:
+    - "**/es/**"
+    - "**/fa/**"
+    - "**/ja/**"
+    - "**/ko/**"
+    - "**/pt/**"
+    - "**/ru/**"
+license: MIT

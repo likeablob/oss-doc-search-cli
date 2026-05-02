@@ -1,0 +1,14 @@
+id: /rails/rails_v7
+name: Rails v7
+repo: rails/rails
+description: Ruby on Rails (v7)
+doc_source:
+  type: repo_path
+  repo: rails/rails
+  path: guides/source
+  extensions:
+    - .md
+  ref: 7-0-stable
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,13 @@
+id: /webpack/webpack
+name: webpack
+repo: webpack/webpack
+description: A bundler for JavaScript and friends
+doc_source:
+  type: separate_repo
+  repo: webpack/webpack.js.org
+  path: src/content
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,13 @@
+id: /fastify/fastify
+name: Fastify
+repo: fastify/fastify
+description: Fast and low overhead web framework for Node.js
+doc_source:
+  type: repo_path
+  repo: fastify/fastify
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

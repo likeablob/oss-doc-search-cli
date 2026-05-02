@@ -1,0 +1,13 @@
+id: /prisma/prisma
+name: Prisma
+repo: prisma/prisma
+description: Next-generation ORM for Node.js and TypeScript
+doc_source:
+  type: separate_repo
+  repo: prisma/docs-legacy
+  path: content
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: Apache-2.0

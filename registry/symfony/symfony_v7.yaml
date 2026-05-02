@@ -1,0 +1,14 @@
+id: /symfony/symfony_v7
+name: Symfony v7
+repo: symfony/symfony
+description: PHP framework for web projects (v7)
+doc_source:
+  type: separate_repo
+  repo: symfony/symfony-docs
+  path: .
+  extensions:
+    - .rst
+  ref: "7.0"
+filters:
+  exclude: []
+license: MIT

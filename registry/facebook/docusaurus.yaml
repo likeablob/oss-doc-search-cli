@@ -1,0 +1,13 @@
+id: /facebook/docusaurus
+name: Docusaurus
+repo: facebook/docusaurus
+description: Easy to maintain open source documentation websites
+doc_source:
+  type: repo_path
+  repo: facebook/docusaurus
+  path: website/docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

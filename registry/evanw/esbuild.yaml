@@ -1,0 +1,13 @@
+id: /evanw/esbuild
+name: esbuild
+repo: evanw/esbuild
+description: An extremely fast JavaScript bundler
+doc_source:
+  type: separate_repo
+  repo: esbuild/esbuild.github.io
+  path: src/content
+  extensions:
+    - .yml
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,13 @@
+id: /usebruno/bruno
+name: Bruno
+repo: usebruno/bruno
+description: Open source IDE for exploring and testing APIs
+doc_source:
+  type: repo_path
+  repo: usebruno/bruno
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,14 @@
+id: /jekyll/jekyll
+name: Jekyll
+repo: jekyll/jekyll
+description: A simple, blog-aware, static site generator
+doc_source:
+  type: repo_path
+  repo: jekyll/jekyll
+  path: docs/_docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

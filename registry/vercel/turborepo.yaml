@@ -1,0 +1,13 @@
+id: /vercel/turborepo
+name: Turborepo
+repo: vercel/turborepo
+description: The high-performance build system for JavaScript and TypeScript codebases
+doc_source:
+  type: repo_path
+  repo: vercel/turborepo
+  path: apps/docs/content/docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

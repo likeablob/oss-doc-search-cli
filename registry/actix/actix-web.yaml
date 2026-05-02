@@ -1,0 +1,13 @@
+id: /actix/actix-web
+name: Actix Web
+repo: actix/actix-web
+description: Powerful, pragmatic, extremely fast web framework for Rust
+doc_source:
+  type: separate_repo
+  repo: actix/actix-website
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: Apache-2.0

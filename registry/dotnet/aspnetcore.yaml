@@ -1,0 +1,13 @@
+id: /dotnet/aspnetcore
+name: ASP.NET Core
+repo: dotnet/aspnetcore
+description: Framework for building web apps and services with .NET and C#
+doc_source:
+  type: separate_repo
+  repo: dotnet/aspnetcore.docs
+  path: aspnetcore
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

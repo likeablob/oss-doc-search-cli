@@ -1,0 +1,14 @@
+id: /nektos/act
+name: act
+repo: nektos/act
+description: Run your GitHub Actions locally
+doc_source:
+  type: separate_repo
+  repo: nektos/act-docs
+  path: src
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

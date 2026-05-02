@@ -1,0 +1,13 @@
+id: /drizzle-team/drizzle-orm
+name: Drizzle ORM
+repo: drizzle-team/drizzle-orm
+description: TypeScript ORM with SQL-like syntax
+doc_source:
+  type: separate_repo
+  repo: drizzle-team/drizzle-orm-docs
+  path: src/content/docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: Apache-2.0

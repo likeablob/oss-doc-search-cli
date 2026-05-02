@@ -1,0 +1,14 @@
+id: /jestjs/jest_v29
+name: Jest v29
+repo: jestjs/jest
+description: Delightful JavaScript Testing (v29)
+doc_source:
+  type: repo_path
+  repo: jestjs/jest
+  path: docs
+  extensions:
+    - .md
+  ref: v29.7.0
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,14 @@
+id: /squidfunk/mkdocs-material
+name: MkDocs Material
+repo: squidfunk/mkdocs-material
+description: A Material Design theme for MkDocs
+doc_source:
+  type: repo_path
+  repo: squidfunk/mkdocs-material
+  path: docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

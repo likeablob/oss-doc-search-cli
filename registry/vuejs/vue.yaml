@@ -1,0 +1,14 @@
+id: /vuejs/vue
+name: Vue
+repo: vuejs/vue
+description: The Progressive JavaScript Framework
+doc_source:
+  type: separate_repo
+  repo: vuejs/docs
+  path: src
+  extensions:
+    - .md
+filters:
+  exclude:
+    - translations/**
+license: MIT

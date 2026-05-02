@@ -1,0 +1,14 @@
+id: /withastro/astro
+name: Astro
+repo: withastro/astro
+description: The web framework for content-driven websites
+doc_source:
+  type: separate_repo
+  repo: withastro/docs
+  path: src/content/docs/en
+  extensions:
+    - .md
+    - .mdx
+filters:
+  exclude: []
+license: MIT

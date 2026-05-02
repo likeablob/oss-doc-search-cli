@@ -1,0 +1,13 @@
+id: /Aider-AI/aider
+name: Aider
+repo: Aider-AI/aider
+description: AI pair programming in your terminal
+doc_source:
+  type: repo_path
+  repo: Aider-AI/aider
+  path: aider/website/docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: Apache-2.0

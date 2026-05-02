@@ -1,0 +1,14 @@
+id: /apache/echarts
+name: Apache ECharts
+repo: apache/echarts
+description: A powerful charting and visualization library
+doc_source:
+  type: separate_repo
+  repo: apache/echarts-doc
+  path: en
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: Apache-2.0

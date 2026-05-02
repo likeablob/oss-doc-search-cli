@@ -1,0 +1,13 @@
+id: /honojs/hono
+name: Hono
+repo: honojs/hono
+description: Ultrafast web framework for the Edges
+doc_source:
+  type: separate_repo
+  repo: honojs/website
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

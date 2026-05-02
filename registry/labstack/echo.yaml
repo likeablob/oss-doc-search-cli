@@ -1,0 +1,14 @@
+id: /labstack/echo
+name: Echo
+repo: labstack/echo
+description: High performance, minimalist Go web framework
+doc_source:
+  type: separate_repo
+  repo: labstack/echox
+  path: website/docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

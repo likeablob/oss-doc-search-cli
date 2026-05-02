@@ -1,0 +1,13 @@
+id: /vuejs/vue_v2
+name: Vue v2
+repo: vuejs/vue
+description: The Progressive JavaScript Framework (v2)
+doc_source:
+  type: separate_repo
+  repo: vuejs/v2.vuejs.org
+  path: src/v2
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

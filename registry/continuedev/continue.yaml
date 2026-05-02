@@ -1,0 +1,13 @@
+id: /continuedev/continue
+name: Continue
+repo: continuedev/continue
+description: AI code assistant for VS Code and JetBrains
+doc_source:
+  type: repo_path
+  repo: continuedev/continue
+  path: docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: Apache-2.0

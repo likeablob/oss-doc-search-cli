@@ -1,0 +1,13 @@
+id: /spring-projects/spring-boot
+name: Spring Boot
+repo: spring-projects/spring-boot
+description: Create stand-alone Spring applications
+doc_source:
+  type: repo_path
+  repo: spring-projects/spring-boot
+  path: documentation/spring-boot-docs/src/docs/antora/modules
+  extensions:
+    - .adoc
+filters:
+  exclude: []
+license: Apache-2.0

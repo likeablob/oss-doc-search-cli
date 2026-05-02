@@ -1,0 +1,14 @@
+id: /vitejs/vite_v7
+name: Vite v7
+repo: vitejs/vite
+description: Next generation frontend tooling (v7)
+doc_source:
+  type: repo_path
+  repo: vitejs/vite
+  path: docs
+  extensions:
+    - .md
+  ref: v7
+filters:
+  exclude: []
+license: MIT

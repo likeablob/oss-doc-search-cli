@@ -1,0 +1,13 @@
+id: /oven-sh/bun
+name: Bun
+repo: oven-sh/bun
+description: Incredibly fast JavaScript runtime, bundler, test runner
+doc_source:
+  type: repo_path
+  repo: oven-sh/bun
+  path: docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

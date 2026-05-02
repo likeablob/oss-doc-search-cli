@@ -1,0 +1,13 @@
+id: /TryGhost/Ghost
+name: Ghost
+repo: TryGhost/Ghost
+description: Independent technology for modern publishing
+doc_source:
+  type: separate_repo
+  repo: TryGhost/docs
+  path: .
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

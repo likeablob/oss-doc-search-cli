@@ -1,0 +1,23 @@
+id: /expressjs/express
+name: Express
+repo: expressjs/express
+description: Fast, unopinionated, minimalist web framework for Node.js
+doc_source:
+  type: separate_repo
+  repo: expressjs/expressjs.com
+  path: en
+  extensions:
+    - .md
+  ref: gh-pages
+filters:
+  exclude:
+    - "**/de/**"
+    - "**/es/**"
+    - "**/fr/**"
+    - "**/it/**"
+    - "**/ja/**"
+    - "**/ko/**"
+    - "**/pt-br/**"
+    - "**/zh-cn/**"
+    - "**/zh-tw/**"
+license: MIT

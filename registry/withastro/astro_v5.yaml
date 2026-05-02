@@ -1,0 +1,15 @@
+id: /withastro/astro_v5
+name: Astro v5
+repo: withastro/astro
+description: The web framework for content-driven websites (v5)
+doc_source:
+  type: separate_repo
+  repo: withastro/docs
+  path: src/content/docs/en
+  extensions:
+    - .md
+    - .mdx
+  ref: v5
+filters:
+  exclude: []
+license: MIT

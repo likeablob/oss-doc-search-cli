@@ -1,0 +1,13 @@
+id: /nuxt/nuxt
+name: Nuxt
+repo: nuxt/nuxt
+description: The Intuitive Vue Framework
+doc_source:
+  type: repo_path
+  repo: nuxt/nuxt
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

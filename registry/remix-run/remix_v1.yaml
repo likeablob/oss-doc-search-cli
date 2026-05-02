@@ -1,0 +1,14 @@
+id: /remix-run/remix_v1
+name: Remix v1
+repo: remix-run/remix
+description: Full stack web framework for React (v1)
+doc_source:
+  type: repo_path
+  repo: remix-run/remix
+  path: docs
+  extensions:
+    - .md
+  ref: v1.6.4
+filters:
+  exclude: []
+license: MIT

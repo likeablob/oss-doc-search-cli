@@ -1,0 +1,14 @@
+id: /fastify/fastify_v4
+name: Fastify v4
+repo: fastify/fastify
+description: Fast and low overhead web framework for Node.js (v4)
+doc_source:
+  type: repo_path
+  repo: fastify/fastify
+  path: docs
+  extensions:
+    - .md
+  ref: v4.29.1
+filters:
+  exclude: []
+license: MIT

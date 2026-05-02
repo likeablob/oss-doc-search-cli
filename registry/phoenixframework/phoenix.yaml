@@ -1,0 +1,13 @@
+id: /phoenixframework/phoenix
+name: Phoenix
+repo: phoenixframework/phoenix
+description: Productive web framework for Elixir
+doc_source:
+  type: repo_path
+  repo: phoenixframework/phoenix
+  path: guides
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

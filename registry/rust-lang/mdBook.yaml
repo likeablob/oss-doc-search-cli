@@ -1,0 +1,14 @@
+id: /rust-lang/mdBook
+name: mdBook
+repo: rust-lang/mdBook
+description: Create modern online books from Markdown files
+doc_source:
+  type: repo_path
+  repo: rust-lang/mdBook
+  path: guide/src
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MPL-2.0

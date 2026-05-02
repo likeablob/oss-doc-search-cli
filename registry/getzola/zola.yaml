@@ -1,0 +1,14 @@
+id: /getzola/zola
+name: Zola
+repo: getzola/zola
+description: A fast static site generator in a single binary
+doc_source:
+  type: repo_path
+  repo: getzola/zola
+  path: docs/content/documentation
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: EUPL-1.2

@@ -1,0 +1,25 @@
+id: /gin-gonic/gin
+name: Gin
+repo: gin-gonic/gin
+description: HTTP web framework written in Go
+doc_source:
+  type: separate_repo
+  repo: gin-gonic/website
+  path: src/content/docs/en/docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude:
+    - "**/ar/**"
+    - "**/es/**"
+    - "**/fa/**"
+    - "**/id/**"
+    - "**/ja/**"
+    - "**/ko-kr/**"
+    - "**/pt/**"
+    - "**/ru/**"
+    - "**/tr/**"
+    - "**/zh-cn/**"
+    - "**/zh-tw/**"
+license: MIT

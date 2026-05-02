@@ -1,0 +1,14 @@
+id: /jekyll/jekyll_v3
+name: Jekyll v3
+repo: jekyll/jekyll
+description: A simple, blog-aware, static site generator (v3)
+doc_source:
+  type: repo_path
+  repo: jekyll/jekyll
+  path: docs/_docs
+  extensions:
+    - .md
+  ref: 3.9-stable
+filters:
+  exclude: []
+license: MIT

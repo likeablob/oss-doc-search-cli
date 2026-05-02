@@ -1,0 +1,25 @@
+id: /fastapi/fastapi
+name: FastAPI
+repo: fastapi/fastapi
+description: Modern, fast web framework for building APIs with Python
+doc_source:
+  type: repo_path
+  repo: fastapi/fastapi
+  path: docs/en/docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude:
+    - "**/de/**"
+    - "**/es/**"
+    - "**/fr/**"
+    - "**/ja/**"
+    - "**/ko/**"
+    - "**/pt/**"
+    - "**/ru/**"
+    - "**/tr/**"
+    - "**/uk/**"
+    - "**/zh-hant/**"
+    - "**/zh/**"
+license: MIT

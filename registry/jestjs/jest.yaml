@@ -1,0 +1,13 @@
+id: /jestjs/jest
+name: Jest
+repo: jestjs/jest
+description: Delightful JavaScript Testing
+doc_source:
+  type: repo_path
+  repo: jestjs/jest
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

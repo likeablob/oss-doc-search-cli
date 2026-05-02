@@ -1,0 +1,14 @@
+id: /gohugoio/hugo
+name: Hugo
+repo: gohugoio/hugo
+description: The world's fastest framework for building websites
+doc_source:
+  type: separate_repo
+  repo: gohugoio/hugoDocs
+  path: content/en
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: Apache-2.0

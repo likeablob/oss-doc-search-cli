@@ -1,0 +1,14 @@
+id: /go-chi/chi
+name: Chi
+repo: go-chi/chi
+description: Lightweight, idiomatic and composable router for Go HTTP services
+doc_source:
+  type: separate_repo
+  repo: go-chi/docs
+  path: pages
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,13 @@
+id: /microsoft/playwright
+name: Playwright
+repo: microsoft/playwright
+description: Fast and reliable end-to-end testing for modern web apps
+doc_source:
+  type: repo_path
+  repo: microsoft/playwright
+  path: docs/src
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: Apache-2.0

@@ -1,0 +1,14 @@
+id: /symfony/symfony
+name: Symfony
+repo: symfony/symfony
+description: PHP framework for web projects
+doc_source:
+  type: separate_repo
+  repo: symfony/symfony-docs
+  path: .
+  extensions:
+    - .rst
+  ref: "8.1"
+filters:
+  exclude: []
+license: MIT

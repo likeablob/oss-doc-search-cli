@@ -1,0 +1,21 @@
+id: /SeleniumHQ/selenium
+name: Selenium
+repo: SeleniumHQ/selenium
+description: Browser automation framework
+doc_source:
+  type: separate_repo
+  repo: SeleniumHQ/docs
+  path: docs_source_files/content
+  extensions:
+    - .md
+  ref: trunk
+filters:
+  include:
+    - "*.en.md"
+  exclude:
+    - "*.es.md"
+    - "*.fr.md"
+    - "*.ja.md"
+    - "*.nl.md"
+    - "*.zh-cn.md"
+license: Apache-2.0

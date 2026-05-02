@@ -1,0 +1,13 @@
+id: /11ty/eleventy
+name: Eleventy
+repo: 11ty/eleventy
+description: A simpler static site generator
+doc_source:
+  type: separate_repo
+  repo: 11ty/11ty-website
+  path: src/docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

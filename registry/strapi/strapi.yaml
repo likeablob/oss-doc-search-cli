@@ -1,0 +1,14 @@
+id: /strapi/strapi
+name: Strapi
+repo: strapi/strapi
+description: Headless CMS to easily build customisable APIs
+doc_source:
+  type: separate_repo
+  repo: strapi/strapi-docs
+  path: files
+  extensions:
+    - .md
+  ref: develop
+filters:
+  exclude: []
+license: MIT

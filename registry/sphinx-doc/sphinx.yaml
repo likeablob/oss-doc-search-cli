@@ -1,0 +1,14 @@
+id: /sphinx-doc/sphinx
+name: Sphinx
+repo: sphinx-doc/sphinx
+description: Python documentation generator
+doc_source:
+  type: repo_path
+  repo: sphinx-doc/sphinx
+  path: doc
+  extensions:
+    - .rst
+  ref: master
+filters:
+  exclude: []
+license: BSD-2-Clause

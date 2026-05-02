@@ -1,0 +1,252 @@
+name: Index Update (Test)
+
+on:
+  workflow_dispatch:
+    inputs:
+      libraries:
+        description: 'Library IDs (comma-separated, "*" for all)'
+        required: false
+        default: "*"
+      force_full:
+        description: "Force full reindex"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+      unchanged: ${{ steps.check.outputs.unchanged }}
+      tag: ${{ steps.tag.outputs.tag }}
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create release tag
+        id: tag
+        run: |
+          TAG="index-update-v$(date +%Y.%m.%d-%H%M)"
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+
+      - name: Download previous manifest
+        run: |
+          mkdir -p ./prev_manifest
+          gh release download index-update-latest --pattern manifest.json --dir ./prev_manifest || echo "No previous manifest"
+        continue-on-error: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Check updates
+        id: check
+        run: |
+          uv run python scripts/check_updates.py \
+            --libraries "${{ inputs.libraries }}" \
+            --prev-manifest ./prev_manifest/manifest.json \
+            --output ./update_info.json \
+            --force-full "${{ inputs.force_full }}"
+
+          changed=$(jq -r '[.changed[].id] | join(",")' ./update_info.json)
+          unchanged=$(jq -r '[.unchanged[].id] | join(",")' ./update_info.json)
+
+          echo "changed=${changed}" >> $GITHUB_OUTPUT
+          echo "unchanged=${unchanged}" >> $GITHUB_OUTPUT
+
+      - name: Upload update info
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: update-info
+          path: ./update_info.json
+
+      - name: Upload previous manifest
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: prev-manifest
+          path: ./prev_manifest
+
+  reindex:
+    needs: check
+    if: needs.check.outputs.changed != '' || inputs.force_full == 'true'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download update info
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: update-info
+
+      - name: Download previous manifest
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: prev-manifest
+          path: ./prev_manifest
+        continue-on-error: true
+
+      - name: Cache ONNX model
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/oss-doc-search-cli/models
+          key: onnx-model-all-MiniLM-L6-v2-v1
+          restore-keys: onnx-model-
+
+      - name: Restore indexes cache
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ./indexes
+          key: indexes-${{ github.run_attempt }}
+          restore-keys: indexes-
+        continue-on-error: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Reindex changed libraries
+        id: reindex
+        run: |
+          uv run python scripts/reindex_libraries.py \
+            --update-info ./update_info.json \
+            --output-dir ./indexes \
+            --continue-on-error
+
+      - name: Generate manifest
+        run: |
+          uv run python scripts/generate_manifest.py \
+            --indexes ./indexes \
+            --output ./indexes/manifest.json \
+            --with-commit-sha \
+            --release-tag ${{ needs.check.outputs.tag }} \
+            --prev-manifest ./prev_manifest/manifest.json \
+            --update-info ./update_info.json
+
+      - name: Upload indexes artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: indexes
+          path: ./indexes
+
+      - name: Save indexes cache
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        if: always()
+        with:
+          path: ./indexes
+          key: indexes-${{ github.run_attempt }}
+
+  validate:
+    needs: reindex
+    if: always() && needs.reindex.result != 'skipped'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Download indexes
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: indexes
+          path: ./indexes
+
+      - name: Validate indexes
+        run: |
+          uv run python scripts/validate_indexes.py \
+            --metadata ./indexes/index_results.json \
+            --fail-on-error
+
+  release:
+    needs: [validate, check]
+    if: needs.validate.result == 'success' && needs.reindex.result == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download indexes
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: indexes
+          path: ./indexes
+
+      - name: Get changed index filenames
+        id: changed-files
+        run: |
+          changed="${{ needs.check.outputs.changed }}"
+          if [ -n "$changed" ]; then
+            files=""
+            for lib in $(echo "$changed" | tr ',' ' '); do
+              filename=$(echo "$lib" | sed 's/^\///' | sed 's/\//_/g')".duckdb"
+              files="$files ./indexes/$filename"
+            done
+            echo "files=${files}" >> $GITHUB_OUTPUT
+          else
+            echo "files=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        run: |
+          if [ -n "${{ steps.changed-files.outputs.files }}" ]; then
+            gh release create ${{ needs.check.outputs.tag }} \
+              ./indexes/manifest.json \
+              ${{ steps.changed-files.outputs.files }} \
+              --title "Index Update ${{ needs.check.outputs.tag }}" \
+              --notes "Incremental update: changed indexes only"
+          else
+            gh release create ${{ needs.check.outputs.tag }} \
+              ./indexes/manifest.json \
+              --title "Index Update ${{ needs.check.outputs.tag }}" \
+              --notes "No changed indexes"
+          fi
+
+      - name: Update latest tag
+        run: |
+          gh release delete index-update-latest --repo ${{ github.repository }} --yes || true
+          gh release create index-update-latest ./indexes/manifest.json --repo ${{ github.repository }} --title "Index Update Latest" --notes "Latest manifest only. Download indexes from versioned releases."
+
+      - name: Clear indexes cache on success
+        run: |
+          gh cache list --limit 100 --json id,key --jq '.[] | select(.key | startswith("indexes-")) | .id' | xargs -I {} gh cache delete {} || true
+
+  summary:
+    needs: [check, reindex, validate, release]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Summary
+        run: |
+          echo "## Index Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Changed: ${{ needs.check.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Unchanged: ${{ needs.check.outputs.unchanged }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Reindex: ${{ needs.reindex.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Validate: ${{ needs.validate.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Release: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY

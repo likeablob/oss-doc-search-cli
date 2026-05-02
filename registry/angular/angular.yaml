@@ -1,0 +1,13 @@
+id: /angular/angular
+name: Angular
+repo: angular/angular
+description: The modern web developer's platform
+doc_source:
+  type: repo_path
+  repo: angular/angular
+  path: adev/src/content
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

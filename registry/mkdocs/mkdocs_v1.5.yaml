@@ -1,0 +1,14 @@
+id: /mkdocs/mkdocs_v1.5
+name: MkDocs v1.5
+repo: mkdocs/mkdocs
+description: Project documentation with Markdown (v1.5)
+doc_source:
+  type: repo_path
+  repo: mkdocs/mkdocs
+  path: docs
+  extensions:
+    - .md
+  ref: 1.5.3
+filters:
+  exclude: []
+license: BSD-2-Clause

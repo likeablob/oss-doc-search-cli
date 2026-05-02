@@ -1,0 +1,14 @@
+id: /django/django
+name: Django
+repo: django/django
+description: The web framework for perfectionists with deadlines
+doc_source:
+  type: repo_path
+  repo: django/django
+  path: docs
+  extensions:
+    - .rst
+    - .txt
+filters:
+  exclude: []
+license: BSD-3-Clause

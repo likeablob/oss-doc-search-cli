@@ -1,0 +1,13 @@
+id: /tailwindlabs/tailwindcss
+name: Tailwind CSS
+repo: tailwindlabs/tailwindcss
+description: A utility-first CSS framework
+doc_source:
+  type: separate_repo
+  repo: tailwindlabs/tailwindcss.com
+  path: src/docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

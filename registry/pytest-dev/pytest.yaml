@@ -1,0 +1,13 @@
+id: /pytest-dev/pytest
+name: pytest
+repo: pytest-dev/pytest
+description: Simple powerful testing with Python
+doc_source:
+  type: repo_path
+  repo: pytest-dev/pytest
+  path: doc/en
+  extensions:
+    - .rst
+filters:
+  exclude: []
+license: MIT

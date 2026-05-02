@@ -1,0 +1,13 @@
+id: /cline/cline
+name: Cline
+repo: cline/cline
+description: Autonomous coding agent for VS Code
+doc_source:
+  type: repo_path
+  repo: cline/cline
+  path: docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: Apache-2.0

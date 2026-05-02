@@ -1,0 +1,14 @@
+id: /argoproj/argo-cd
+name: Argo CD
+repo: argoproj/argo-cd
+description: Declarative continuous deployment for Kubernetes
+doc_source:
+  type: repo_path
+  repo: argoproj/argo-cd
+  path: docs
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: Apache-2.0

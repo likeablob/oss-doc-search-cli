@@ -1,0 +1,13 @@
+id: /directus/directus
+name: Directus
+repo: directus/directus
+description: Open Data Platform
+doc_source:
+  type: separate_repo
+  repo: directus/docs
+  path: content
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: GPLv3

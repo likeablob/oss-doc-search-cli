@@ -1,0 +1,13 @@
+id: /twbs/bootstrap
+name: Bootstrap
+repo: twbs/bootstrap
+description: The most popular HTML, CSS, and JavaScript framework
+doc_source:
+  type: repo_path
+  repo: twbs/bootstrap
+  path: site/src/content/docs
+  extensions:
+    - .mdx
+filters:
+  exclude: []
+license: MIT

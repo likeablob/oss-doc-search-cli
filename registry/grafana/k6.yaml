@@ -1,0 +1,14 @@
+id: /grafana/k6
+name: k6
+repo: grafana/k6
+description: Modern load testing tool for developers and testers
+doc_source:
+  type: separate_repo
+  repo: grafana/k6-docs
+  path: docs/sources/k6/v1.1.x
+  extensions:
+    - .md
+  ref: master
+filters:
+  exclude: []
+license: AGPL-3.0

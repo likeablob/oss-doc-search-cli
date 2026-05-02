@@ -1,0 +1,13 @@
+id: /vitest-dev/vitest
+name: Vitest
+repo: vitest-dev/vitest
+description: Next generation testing framework powered by Vite
+doc_source:
+  type: repo_path
+  repo: vitest-dev/vitest
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

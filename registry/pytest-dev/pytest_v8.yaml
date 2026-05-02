@@ -1,0 +1,14 @@
+id: /pytest-dev/pytest_v8
+name: pytest v8
+repo: pytest-dev/pytest
+description: Simple powerful testing with Python (v8)
+doc_source:
+  type: repo_path
+  repo: pytest-dev/pytest
+  path: doc/en
+  extensions:
+    - .rst
+  ref: 8.3.x
+filters:
+  exclude: []
+license: MIT

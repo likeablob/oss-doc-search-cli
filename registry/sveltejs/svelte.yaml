@@ -1,0 +1,13 @@
+id: /sveltejs/svelte
+name: Svelte
+repo: sveltejs/svelte
+description: Cybernetically enhanced web apps
+doc_source:
+  type: separate_repo
+  repo: sveltejs/svelte.dev
+  path: apps/svelte.dev/content/docs/svelte
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

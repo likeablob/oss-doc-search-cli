@@ -1,0 +1,13 @@
+id: /puppeteer/puppeteer
+name: Puppeteer
+repo: puppeteer/puppeteer
+description: Headless Chrome Node.js API
+doc_source:
+  type: repo_path
+  repo: puppeteer/puppeteer
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: Apache-2.0

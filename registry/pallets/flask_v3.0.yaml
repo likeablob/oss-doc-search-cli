@@ -1,0 +1,14 @@
+id: /pallets/flask_v3.0
+name: Flask v3.0
+repo: pallets/flask
+description: The Python micro framework for building web applications (v3.0)
+doc_source:
+  type: repo_path
+  repo: pallets/flask
+  path: docs
+  extensions:
+    - .rst
+  ref: 3.0.3
+filters:
+  exclude: []
+license: BSD-3-Clause

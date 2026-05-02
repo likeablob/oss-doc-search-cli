@@ -1,0 +1,13 @@
+id: /remix-run/remix
+name: Remix
+repo: remix-run/remix
+description: Full stack web framework for React
+doc_source:
+  type: separate_repo
+  repo: remix-run/remix-v2-website
+  path: data/docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

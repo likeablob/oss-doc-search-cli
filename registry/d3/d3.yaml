@@ -1,0 +1,13 @@
+id: /d3/d3
+name: D3
+repo: d3/d3
+description: Data-Driven Documents
+doc_source:
+  type: repo_path
+  repo: d3/d3
+  path: docs
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: ISC

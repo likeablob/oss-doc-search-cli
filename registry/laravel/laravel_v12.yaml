@@ -1,0 +1,14 @@
+id: /laravel/laravel_v12
+name: Laravel v12
+repo: laravel/laravel
+description: The PHP Framework for Web Artisans (v12)
+doc_source:
+  type: separate_repo
+  repo: laravel/docs
+  path: .
+  extensions:
+    - .md
+  ref: 12.x
+filters:
+  exclude: []
+license: MIT

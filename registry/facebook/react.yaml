@@ -1,0 +1,13 @@
+id: /facebook/react
+name: React
+repo: facebook/react
+description: A JavaScript library for building user interfaces
+doc_source:
+  type: separate_repo
+  repo: reactjs/react.dev
+  path: src/content
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

@@ -1,0 +1,13 @@
+id: /rails/rails
+name: Rails
+repo: rails/rails
+description: Ruby on Rails
+doc_source:
+  type: repo_path
+  repo: rails/rails
+  path: guides/source
+  extensions:
+    - .md
+filters:
+  exclude: []
+license: MIT

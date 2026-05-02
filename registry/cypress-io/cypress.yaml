@@ -1,0 +1,15 @@
+id: /cypress-io/cypress
+name: Cypress
+repo: cypress-io/cypress
+description: Fast, easy and reliable testing for anything that runs in a browser
+doc_source:
+  type: separate_repo
+  repo: cypress-io/cypress-documentation
+  path: docs
+  extensions:
+    - .md
+    - .mdx
+  ref: develop
+filters:
+  exclude: []
+license: MIT
