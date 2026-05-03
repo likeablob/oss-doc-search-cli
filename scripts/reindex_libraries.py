@@ -299,6 +299,7 @@ def reindex_library(
             "chunks": stats["chunks"],
             "index_size_mb": stats["file_size_mb"],
             "index_path": str(index_path),
+            "index_filename": index_path.name,
         }
 
 
@@ -352,6 +353,7 @@ def main():
                     "chunks": chunks,
                     "index_size_mb": round(size_mb, 2),
                     "error": None,
+                    "index_filename": index_path.name,
                 }
             )
             continue
@@ -372,6 +374,7 @@ def main():
                     "success": False,
                     "commit_sha": commit_sha,
                     "error": str(e),
+                    "index_filename": None,
                 }
             )
             if not args.continue_on_error:

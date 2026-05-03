@@ -11,6 +11,10 @@ on:
         description: "Force full reindex"
         type: boolean
         default: false
+      n_groups:
+        description: "Number of parallel groups"
+        type: number
+        default: 3
 
 permissions:
   contents: write
@@ -24,8 +28,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     outputs:
-      changed: ${{ steps.check.outputs.changed }}
+      groups: ${{ steps.split.outputs.groups }}
       unchanged: ${{ steps.check.outputs.unchanged }}
+      changed: ${{ steps.check.outputs.changed }}
       tag: ${{ steps.tag.outputs.tag }}
 
     steps:
@@ -60,11 +65,21 @@ jobs:
             --output ./update_info.json \
             --force-full "${{ inputs.force_full }}"
 
-          changed=$(jq -r '[.changed[].id] | join(",")' ./update_info.json)
           unchanged=$(jq -r '[.unchanged[].id] | join(",")' ./update_info.json)
-
-          echo "changed=${changed}" >> $GITHUB_OUTPUT
+          changed=$(jq -r '[.changed[].id] | join(",")' ./update_info.json)
           echo "unchanged=${unchanged}" >> $GITHUB_OUTPUT
+          echo "changed=${changed}" >> $GITHUB_OUTPUT
+
+      - name: Split groups
+        id: split
+        run: |
+          uv run python scripts/split_groups.py \
+            --update-info ./update_info.json \
+            --n-groups ${{ inputs.n_groups }} \
+            --output ./groups.json
+
+          groups=$(cat ./groups.json)
+          echo "groups=${groups}" >> $GITHUB_OUTPUT
 
       - name: Upload update info
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -81,17 +96,16 @@ jobs:
 
   reindex:
     needs: check
-    if: needs.check.outputs.changed != '' || inputs.force_full == 'true'
+    if: fromJSON(needs.check.outputs.groups)[0].changed[0] != null || inputs.force_full == 'true'
     runs-on: ubuntu-latest
     continue-on-error: true
+    strategy:
+      matrix:
+        group: ${{ fromJSON(needs.check.outputs.groups) }}
+      max-parallel: ${{ inputs.n_groups }}
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Download update info
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: update-info
 
       - name: Download previous manifest
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
@@ -123,13 +137,89 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Reindex changed libraries
+      - name: Create update_info for group
+        run: |
+          echo '{"changed": ${{ toJSON(matrix.group.changed) }}}' > ./update_info.json
+
+      - name: Reindex group ${{ matrix.group.id }}
         id: reindex
         run: |
-          uv run python scripts/reindex_libraries.py \
-            --update-info ./update_info.json \
-            --output-dir ./indexes \
-            --continue-on-error
+          if [ -s ./update_info.json ] && [ "$(jq '.changed | length' ./update_info.json)" -gt 0 ]; then
+            uv run python scripts/reindex_libraries.py \
+              --update-info ./update_info.json \
+              --output-dir ./indexes \
+              --continue-on-error
+          else
+            echo "No libraries to reindex in this group"
+          fi
+
+      - name: Rename index_results for group
+        run: |
+          if [ -f ./indexes/index_results.json ]; then
+            mv ./indexes/index_results.json ./indexes/index_results_group_${{ matrix.group.id }}.json
+          fi
+
+      - name: Upload indexes artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: indexes-group-${{ matrix.group.id }}
+          path: ./indexes
+
+  merge:
+    needs: [reindex, check]
+    if: always() && needs.reindex.result != 'skipped'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Download previous manifest
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: prev-manifest
+          path: ./prev_manifest
+        continue-on-error: true
+
+      - name: Download indexes from all groups
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          pattern: indexes-group-*
+          path: ./indexes
+          merge-multiple: true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Merge index_results from all groups
+        run: |
+          if ls ./indexes/index_results_group_*.json 1> /dev/null 2>&1; then
+            jq -s 'add' ./indexes/index_results_group_*.json > ./indexes/index_results.json
+            rm ./indexes/index_results_group_*.json
+          fi
+
+      - name: Merge update_info
+        run: |
+          unchanged="${{ needs.check.outputs.unchanged }}"
+          if [ -n "$unchanged" ]; then
+            unchanged_json=$(echo "$unchanged" | jq -R 'split(",") | map({id: ., commit_sha: ""})')
+          else
+            unchanged_json="[]"
+          fi
+
+          if [ -f ./indexes/index_results.json ]; then
+            changed_all=$(jq '[.[] | {id: .library_id, commit_sha: .commit_sha, repo: "", ref: ""}]' ./indexes/index_results.json)
+          else
+            changed_all="[]"
+          fi
+
+          jq -n --argjson changed "$changed_all" --argjson unchanged "$unchanged_json" '{"changed": $changed, "unchanged": $unchanged}' > ./update_info.json
+          cat ./update_info.json
 
       - name: Generate manifest
         run: |
@@ -141,23 +231,21 @@ jobs:
             --prev-manifest ./prev_manifest/manifest.json \
             --update-info ./update_info.json
 
-      - name: Upload indexes artifact
+      - name: Upload unified indexes artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always()
         with:
           name: indexes
           path: ./indexes
 
       - name: Save indexes cache
         uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        if: always()
         with:
           path: ./indexes
           key: indexes-${{ github.run_attempt }}
 
   validate:
-    needs: reindex
-    if: always() && needs.reindex.result != 'skipped'
+    needs: merge
+    if: always() && needs.merge.result != 'skipped'
     runs-on: ubuntu-latest
 
     steps:
@@ -184,8 +272,8 @@ jobs:
             --fail-on-error
 
   release:
-    needs: [validate, check]
-    if: needs.validate.result == 'success' && needs.reindex.result == 'success'
+    needs: [validate, check, merge]
+    if: needs.validate.result == 'success' && needs.merge.result == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -200,12 +288,12 @@ jobs:
       - name: Get changed index filenames
         id: changed-files
         run: |
-          changed="${{ needs.check.outputs.changed }}"
-          if [ -n "$changed" ]; then
+          if [ -f ./indexes/index_results.json ]; then
             files=""
-            for lib in $(echo "$changed" | tr ',' ' '); do
-              filename=$(echo "$lib" | sed 's/^\///' | sed 's/\//_/g')".duckdb"
-              files="$files ./indexes/$filename"
+            for filename in $(jq -r '.[] | select(.success == true and .index_filename != null) | .index_filename' ./indexes/index_results.json); do
+              if [ -f "./indexes/$filename" ]; then
+                files="$files ./indexes/$filename"
+              fi
             done
             echo "files=${files}" >> $GITHUB_OUTPUT
           else
@@ -237,7 +325,7 @@ jobs:
           gh cache list --limit 100 --json id,key --jq '.[] | select(.key | startswith("indexes-")) | .id' | xargs -I {} gh cache delete {} || true
 
   summary:
-    needs: [check, reindex, validate, release]
+    needs: [check, reindex, merge, validate, release]
     if: always()
     runs-on: ubuntu-latest
 
@@ -246,8 +334,10 @@ jobs:
         run: |
           echo "## Index Update Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Groups: ${{ inputs.n_groups }}" >> $GITHUB_STEP_SUMMARY
           echo "- Changed: ${{ needs.check.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
           echo "- Unchanged: ${{ needs.check.outputs.unchanged }}" >> $GITHUB_STEP_SUMMARY
           echo "- Reindex: ${{ needs.reindex.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Merge: ${{ needs.merge.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Validate: ${{ needs.validate.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- Release: ${{ needs.release.result }}" >> $GITHUB_STEP_SUMMARY
