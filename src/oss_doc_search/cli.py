@@ -2,9 +2,9 @@ import argparse
 import json
 import sys
 
-from .config import CACHE_MANIFEST, INDEXES_DIR
+from .config import CACHE_MANIFEST
 from .list import list_libraries
-from .models import Manifest
+from .models import LibraryManifestEntry, Manifest
 from .query import query_docs
 from .resolve import resolve_library_id
 from .update import show_status, update_all, update_index, update_manifest
@@ -31,12 +31,39 @@ def load_manifest() -> Manifest:
         ) from e
 
 
-def print_results(results: list[dict]) -> None:
+def find_library_entry(
+    manifest: Manifest, library_id: str
+) -> LibraryManifestEntry | None:
+    """Find library entry in manifest."""
+    for lib in manifest.libraries:
+        if lib.id == library_id:
+            return lib
+    return None
+
+
+def build_raw_url(repo: str, commit_sha: str, source: str) -> str:
+    """Build raw.githubusercontent.com URL."""
+    return f"https://raw.githubusercontent.com/{repo}/{commit_sha}/{source.lstrip('/')}"
+
+
+def print_results(
+    results: list[dict],
+    library_entry: LibraryManifestEntry | None,
+    show_full: bool = False,
+) -> None:
     for r in results:
         print(f"[{r['distance']:.4f}] {r['id']}")
         print(f"  Title: {r['title']}")
-        print(f"  Source: {r['source']}")
-        print(f"  Content: {r['content'][:200].strip()}...")
+
+        if library_entry and library_entry.commit_sha:
+            repo = library_entry.doc_repo or library_entry.repo
+            raw_url = build_raw_url(repo, library_entry.commit_sha, r["source"])
+            print(f"  Raw URL: {raw_url}")
+
+        if show_full:
+            print(f"  Content:\n{r['content']}")
+        else:
+            print(f"  Content: {r['content'][:200].strip()}...")
         print()
 
 
@@ -58,6 +85,9 @@ def main() -> None:
     query_parser.add_argument("query", help="Search query")
     query_parser.add_argument(
         "--k", "-k", type=int, default=8, help="Number of results"
+    )
+    query_parser.add_argument(
+        "--full", "-f", action="store_true", help="Show full content"
     )
 
     # list
@@ -110,14 +140,13 @@ def main() -> None:
 
     elif args.command == "query":
         try:
+            library_entry = find_library_entry(manifest, args.library_id)
             results = query_docs(args.library_id, args.query, args.k)
             print(f"\nQuery: {args.query}")
             print(f"Top {args.k} results:\n")
-            print_results(results)
+            print_results(results, library_entry, show_full=args.full)
         except FileNotFoundError as e:
             print(f"Error: {e}")
-            print(f"Please run: ossds update {args.library_id}")
-            print(f"Or manually place index in: {INDEXES_DIR}")
             sys.exit(1)
 
     elif args.command == "list":

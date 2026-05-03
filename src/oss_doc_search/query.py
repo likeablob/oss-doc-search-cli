@@ -2,6 +2,7 @@ import duckdb
 
 from .config import INDEXES_DIR
 from .embedder import get_embedder
+from .update import update_index
 
 
 def query_docs(library_id: str, query: str, k: int = 8) -> list[dict]:
@@ -9,7 +10,16 @@ def query_docs(library_id: str, query: str, k: int = 8) -> list[dict]:
     index_path = INDEXES_DIR / f"{index_name}.duckdb"
 
     if not index_path.exists():
-        raise FileNotFoundError(f"Index not found: {library_id}")
+        print(f"Index not found for {library_id}. Downloading...")
+        try:
+            update_index(library_id)
+        except Exception as e:
+            raise FileNotFoundError(
+                f"Failed to download index for {library_id}: {e}"
+            ) from e
+        if not index_path.exists():
+            raise FileNotFoundError(f"Index for {library_id} is not available")
+        print(f"Index downloaded successfully for {library_id}")
 
     embedder = get_embedder()
     query_emb = embedder.embed(query)

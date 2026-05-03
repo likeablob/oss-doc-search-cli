@@ -99,8 +99,11 @@ class Embedder:
             },
         )
 
-        mask = np.expand_dims(attention_mask, -1).repeat(outputs[0].shape[-1], -1)
-        embeddings = (outputs[0] * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
+        output_array = outputs[0]
+        if not isinstance(output_array, np.ndarray):
+            output_array = np.array(output_array)
+        mask = np.expand_dims(attention_mask, -1).repeat(output_array.shape[-1], -1)
+        embeddings = (output_array * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
         return embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
 
 
@@ -117,7 +120,9 @@ def chunk_text(text: str, max_chunk_size: int = 500, overlap: int = 50) -> list[
     return chunks
 
 
-def clone_repo(repo: str, output_dir: Path, ref: str = None, depth: int = 1) -> Path:
+def clone_repo(
+    repo: str, output_dir: Path, ref: str | None = None, depth: int = 1
+) -> Path:
     url = f"https://github.com/{repo}.git"
     if output_dir.exists():
         shutil.rmtree(output_dir)
@@ -335,17 +340,20 @@ def main():
         if index_path.exists():
             print(f"\nSkipping {library_id} (index exists from cache)")
             conn = duckdb.connect(str(index_path))
-            chunks = conn.execute("SELECT COUNT(*) FROM docs").fetchone()[0]
+            result = conn.execute("SELECT COUNT(*) FROM docs").fetchone()
+            chunks = result[0] if result else 0
             conn.close()
             size_mb = index_path.stat().st_size / 1024 / 1024
-            results.append({
-                "library_id": library_id,
-                "success": True,
-                "commit_sha": commit_sha,
-                "chunks": chunks,
-                "index_size_mb": round(size_mb, 2),
-                "error": None,
-            })
+            results.append(
+                {
+                    "library_id": library_id,
+                    "success": True,
+                    "commit_sha": commit_sha,
+                    "chunks": chunks,
+                    "index_size_mb": round(size_mb, 2),
+                    "error": None,
+                }
+            )
             continue
 
         print(f"\nIndexing {library_id}...")
@@ -358,12 +366,14 @@ def main():
         except Exception as e:
             print(f"  ERROR: {e}")
             failed.append(library_id)
-            results.append({
-                "library_id": library_id,
-                "success": False,
-                "commit_sha": commit_sha,
-                "error": str(e),
-            })
+            results.append(
+                {
+                    "library_id": library_id,
+                    "success": False,
+                    "commit_sha": commit_sha,
+                    "error": str(e),
+                }
+            )
             if not args.continue_on_error:
                 raise
 

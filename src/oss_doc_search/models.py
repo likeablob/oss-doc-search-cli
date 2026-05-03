@@ -66,6 +66,7 @@ class LibraryManifestEntry(BaseModel):
     id: str
     name: str
     repo: str
+    doc_repo: str | None = None
     license: str
     description: str | None = None
     indexed: bool = False

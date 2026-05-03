@@ -18,7 +18,9 @@ GITHUB_RELEASE_API_URL = (
 )
 
 
-def get_release_by_tag(tag: str, owner: str = None, repo: str = None) -> dict:
+def get_release_by_tag(
+    tag: str, owner: str | None = None, repo: str | None = None
+) -> dict:
     """Get release info by tag name."""
     if owner is None or repo is None:
         owner, repo = get_repo_config()
@@ -32,7 +34,7 @@ def get_release_by_tag(tag: str, owner: str = None, repo: str = None) -> dict:
     return resp.json()
 
 
-def parse_index_url(index_url: str) -> dict:
+def parse_index_url(index_url: str) -> dict | None:
     """Parse index_url to extract owner, repo, tag, filename."""
     import re
 
@@ -60,7 +62,7 @@ def get_auth_headers(json_api: bool = True) -> dict:
     return headers
 
 
-def get_latest_release_info(owner: str = None, repo: str = None) -> dict:
+def get_latest_release_info(owner: str | None = None, repo: str | None = None) -> dict:
     """Get latest release info from GitHub API."""
     if owner is None or repo is None:
         owner, repo = get_repo_config()

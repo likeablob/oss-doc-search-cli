@@ -70,8 +70,11 @@ class Embedder:
             },
         )
 
-        mask = np.expand_dims(attention_mask, -1).repeat(outputs[0].shape[-1], -1)
-        embeddings = (outputs[0] * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
+        output_array = outputs[0]
+        if not isinstance(output_array, np.ndarray):
+            output_array = np.array(output_array)
+        mask = np.expand_dims(attention_mask, -1).repeat(output_array.shape[-1], -1)
+        embeddings = (output_array * mask).sum(1) / np.clip(mask.sum(1), 1e-9, None)
         return embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
 
 

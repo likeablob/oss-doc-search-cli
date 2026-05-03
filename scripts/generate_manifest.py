@@ -69,7 +69,8 @@ def check_index_exists(library_id: str, indexes_dir: Path) -> dict | None:
     import duckdb
 
     conn = duckdb.connect(str(index_path))
-    chunks = conn.execute("SELECT COUNT(*) FROM docs").fetchone()[0]
+    result = conn.execute("SELECT COUNT(*) FROM docs").fetchone()
+    chunks = result[0] if result else 0
     conn.close()
 
     return {
@@ -87,7 +88,7 @@ def generate_manifest(
     output_path: Path,
     include_missing: bool = False,
     with_commit_sha: bool = False,
-    release_tag: str = None,
+    release_tag: str | None = None,
     prev_manifest: dict | None = None,
     update_info: dict | None = None,
 ):
@@ -135,10 +136,11 @@ def generate_manifest(
         )
         index_info = check_index_exists(lib_id, indexes_dir)
 
-        entry = {
+        entry: dict[str, str | bool | int | float] = {
             "id": lib_id,
             "name": lib.name,
             "repo": lib.repo,
+            "doc_repo": lib.doc_source.repo,
             "license": lib.license,
             "description": lib.description or "",
         }
