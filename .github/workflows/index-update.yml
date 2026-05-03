@@ -78,7 +78,7 @@ jobs:
             --n-groups ${{ inputs.n_groups }} \
             --output ./groups.json
 
-          groups=$(cat ./groups.json)
+          groups=$(jq -c . ./groups.json)
           echo "groups=${groups}" >> $GITHUB_OUTPUT
 
       - name: Upload update info
