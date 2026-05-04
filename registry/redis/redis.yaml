@@ -1,0 +1,16 @@
+id: /redis/redis
+name: Redis
+repo: redis/redis
+description: In-memory data structure store, used as a database, cache, and message broker
+doc_source:
+  type: repo_path
+  repo: redis/redis
+  path: README.md
+  extensions:
+    - .md
+  ref: unstable
+  filters:
+    include:
+      - README.md
+    exclude: []
+license: BSD-3-Clause

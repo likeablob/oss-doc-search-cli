@@ -1,0 +1,14 @@
+id: /vueuse/vueuse
+name: VueUse
+repo: vueuse/vueuse
+description: Collection of essential Vue composition utilities
+doc_source:
+  type: repo_path
+  repo: vueuse/vueuse
+  path: packages/core
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

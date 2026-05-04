@@ -1,0 +1,14 @@
+id: /pandas-dev/pandas
+name: pandas
+repo: pandas-dev/pandas
+description: Flexible and powerful data analysis library for Python
+doc_source:
+  type: repo_path
+  repo: pandas-dev/pandas
+  path: doc
+  extensions:
+    - .rst
+  ref: main
+  filters:
+    exclude: []
+license: BSD-3-Clause

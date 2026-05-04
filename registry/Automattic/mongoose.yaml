@@ -1,0 +1,14 @@
+id: /Automattic/mongoose
+name: Mongoose
+repo: Automattic/mongoose
+description: MongoDB object modeling designed to work in an asynchronous environment
+doc_source:
+  type: repo_path
+  repo: Automattic/mongoose
+  path: docs
+  extensions:
+    - .md
+  ref: master
+  filters:
+    exclude: []
+license: MIT

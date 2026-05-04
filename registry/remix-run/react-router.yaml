@@ -1,0 +1,14 @@
+id: /remix-run/react-router
+name: React Router
+repo: remix-run/react-router
+description: Declarative routing for React
+doc_source:
+  type: repo_path
+  repo: remix-run/react-router
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

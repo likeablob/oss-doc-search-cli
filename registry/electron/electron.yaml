@@ -1,0 +1,14 @@
+id: /electron/electron
+name: Electron
+repo: electron/electron
+description: Build cross-platform desktop apps with JavaScript, HTML, and CSS
+doc_source:
+  type: repo_path
+  repo: electron/electron
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

@@ -1,0 +1,16 @@
+id: /lodash/lodash
+name: lodash
+repo: lodash/lodash
+description: Modern utility library delivering modularity, performance & extras
+doc_source:
+  type: repo_path
+  repo: lodash/lodash
+  path: doc
+  extensions:
+    - .md
+  ref: main
+  filters:
+    include:
+      - README.md
+    exclude: []
+license: MIT

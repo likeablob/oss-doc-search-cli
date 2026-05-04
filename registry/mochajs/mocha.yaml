@@ -1,0 +1,15 @@
+id: /mochajs/mocha
+name: Mocha
+repo: mochajs/mocha
+description: Simple, flexible, fun JavaScript test framework
+doc_source:
+  type: repo_path
+  repo: mochajs/mocha
+  path: docs/src/content/docs
+  extensions:
+    - .md
+    - .mdx
+  ref: main
+  filters:
+    exclude: []
+license: MIT

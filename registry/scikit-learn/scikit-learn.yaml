@@ -1,0 +1,14 @@
+id: /scikit-learn/scikit-learn
+name: scikit-learn
+repo: scikit-learn/scikit-learn
+description: Machine learning library for Python
+doc_source:
+  type: repo_path
+  repo: scikit-learn/scikit-learn
+  path: doc
+  extensions:
+    - .rst
+  ref: main
+  filters:
+    exclude: []
+license: BSD-3-Clause

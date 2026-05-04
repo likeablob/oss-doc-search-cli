@@ -1,0 +1,14 @@
+id: /babel/babel
+name: Babel
+repo: babel/babel
+description: JavaScript compiler
+doc_source:
+  type: repo_path
+  repo: babel/babel
+  path: doc
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

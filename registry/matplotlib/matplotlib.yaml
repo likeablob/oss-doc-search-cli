@@ -1,0 +1,14 @@
+id: /matplotlib/matplotlib
+name: Matplotlib
+repo: matplotlib/matplotlib
+description: Comprehensive library for creating static, animated, and interactive visualizations in Python
+doc_source:
+  type: repo_path
+  repo: matplotlib/matplotlib
+  path: doc
+  extensions:
+    - .rst
+  ref: main
+  filters:
+    exclude: []
+license: PSF-2.0

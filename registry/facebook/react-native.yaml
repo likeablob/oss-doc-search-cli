@@ -1,0 +1,14 @@
+id: /facebook/react-native
+name: React Native
+repo: facebook/react-native
+description: Framework for building native apps using React
+doc_source:
+  type: separate_repo
+  repo: facebook/react-native-website
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

@@ -1,0 +1,14 @@
+id: /socketio/socket.io
+name: Socket.IO
+repo: socketio/socket.io
+description: Real-time bidirectional event-based communication
+doc_source:
+  type: repo_path
+  repo: socketio/socket.io
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

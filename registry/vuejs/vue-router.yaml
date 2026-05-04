@@ -1,0 +1,19 @@
+id: /vuejs/vue-router
+name: Vue Router
+repo: vuejs/vue-router
+description: Official router for Vue.js
+doc_source:
+  type: repo_path
+  repo: vuejs/vue-router
+  path: docs
+  extensions:
+    - .md
+  ref: dev
+  filters:
+    exclude:
+      - "**/fr/**"
+      - "**/ja/**"
+      - "**/kr/**"
+      - "**/ru/**"
+      - "**/zh/**"
+license: MIT

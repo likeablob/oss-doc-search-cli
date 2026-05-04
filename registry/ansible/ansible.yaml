@@ -1,0 +1,14 @@
+id: /ansible/ansible
+name: Ansible
+repo: ansible/ansible
+description: IT automation platform that makes your applications and systems easier to deploy
+doc_source:
+  type: separate_repo
+  repo: ansible/ansible-documentation
+  path: docs
+  extensions:
+    - .rst
+  ref: devel
+  filters:
+    exclude: []
+license: GPL-3.0

@@ -1,0 +1,14 @@
+id: /hashicorp/terraform
+name: Terraform
+repo: hashicorp/terraform
+description: Infrastructure as code tool to build, change, and manage infrastructure
+doc_source:
+  type: repo_path
+  repo: hashicorp/terraform
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MPL-2.0
