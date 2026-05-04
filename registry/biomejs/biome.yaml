@@ -1,0 +1,24 @@
+id: /biomejs/biome
+name: Biome
+repo: biomejs/biome
+description: Biome is a fast formatter, linter and toolchain for JavaScript and TypeScript
+doc_source:
+  type: separate_repo
+  repo: biomejs/website
+  path: src/content/docs
+  extensions:
+    - .mdx
+    - .md
+  ref: main
+filters:
+  exclude:
+    - "**/es/**"
+    - "**/fr/**"
+    - "**/ja/**"
+    - "**/zh-CN/**"
+    - "**/pt-BR/**"
+    - "**/ru/**"
+    - "**/uk/**"
+    - "**/pl/**"
+    - "**/blog/**"
+license: MIT

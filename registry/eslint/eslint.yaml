@@ -1,0 +1,26 @@
+id: /eslint/eslint
+name: ESLint
+repo: eslint/eslint
+description: Find and fix problems in your JavaScript code
+doc_source:
+  type: repo_path
+  repo: eslint/eslint
+  path: docs/src
+  extensions:
+    - .md
+  ref: main
+  filters:
+    include:
+      - rules/**
+      - use/**
+      - extend/**
+      - integrate/**
+      - library/**
+      - about/**
+      - configure/**
+    exclude:
+      - _data/**
+      - _plugins/**
+      - assets/**
+      - static/**
+license: MIT

@@ -1,0 +1,16 @@
+id: /git/git
+name: Git
+repo: git/git
+description: Git - fast, scalable, distributed revision control system
+doc_source:
+  type: repo_path
+  repo: git/git
+  path: Documentation
+  extensions:
+    - .adoc
+  ref: master
+  filters:
+    exclude:
+      - RelNotes/**
+      - technical/**
+license: GPL-2.0-only

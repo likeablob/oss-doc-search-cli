@@ -1,0 +1,14 @@
+id: /fastapi/typer
+name: Typer
+repo: fastapi/typer
+description: Typer is a library for building CLI applications in Python
+doc_source:
+  type: repo_path
+  repo: fastapi/typer
+  path: docs
+  extensions:
+    - .md
+  ref: master
+  filters:
+    exclude: []
+license: MIT

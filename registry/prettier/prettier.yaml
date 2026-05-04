@@ -1,0 +1,14 @@
+id: /prettier/prettier
+name: Prettier
+repo: prettier/prettier
+description: Prettier is an opinionated code formatter
+doc_source:
+  type: repo_path
+  repo: prettier/prettier
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

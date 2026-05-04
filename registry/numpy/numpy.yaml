@@ -1,0 +1,21 @@
+id: /numpy/numpy
+name: NumPy
+repo: numpy/numpy
+description: The fundamental package for scientific computing with Python
+doc_source:
+  type: repo_path
+  repo: numpy/numpy
+  path: doc/source
+  extensions:
+    - .rst
+  ref: main
+  filters:
+    include:
+      - user/**
+      - reference/**
+    exclude:
+      - dev/**
+      - release/**
+      - _static/**
+      - _templates/**
+license: BSD-3-Clause

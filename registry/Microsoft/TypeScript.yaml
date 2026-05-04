@@ -1,0 +1,22 @@
+id: /Microsoft/TypeScript
+name: TypeScript
+repo: Microsoft/TypeScript
+description: TypeScript is a strongly typed programming language that builds on JavaScript
+doc_source:
+  type: separate_repo
+  repo: Microsoft/TypeScript-Website
+  path: packages/documentation/copy/en
+  extensions:
+    - .md
+  ref: v2
+  filters:
+    include:
+      - handbook-v2/**
+      - reference/**
+      - declaration-files/**
+      - get-started/**
+      - project-config/**
+      - modules-reference/**
+    exclude:
+      - handbook-v1/**
+license: Apache-2.0

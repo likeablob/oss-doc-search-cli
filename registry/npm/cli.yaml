@@ -1,0 +1,14 @@
+id: /npm/cli
+name: npm
+repo: npm/cli
+description: The package manager for JavaScript
+doc_source:
+  type: repo_path
+  repo: npm/cli
+  path: docs/lib/content
+  extensions:
+    - .md
+  ref: latest
+  filters:
+    exclude: []
+license: Artistic-2.0

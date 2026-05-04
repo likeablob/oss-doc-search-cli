@@ -1,0 +1,23 @@
+id: /python/cpython
+name: Python
+repo: python/cpython
+description: The Python programming language
+doc_source:
+  type: repo_path
+  repo: python/cpython
+  path: Doc
+  extensions:
+    - .rst
+  ref: main
+  filters:
+    include:
+      - library/**
+      - tutorial/**
+      - reference/**
+      - howto/**
+      - faq/**
+    exclude:
+      - c-api/**
+      - whatsnew/**
+      - deprecations/**
+license: PSF-2.0

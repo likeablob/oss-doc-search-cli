@@ -1,0 +1,17 @@
+id: /axios/axios
+name: Axios
+repo: axios/axios
+description: Promise based HTTP client for the browser and node.js
+doc_source:
+  type: repo_path
+  repo: axios/axios
+  path: docs/pages
+  extensions:
+    - .md
+  ref: v1.x
+  filters:
+    exclude:
+      - es/**
+      - fr/**
+      - zh/**
+license: MIT

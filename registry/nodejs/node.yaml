@@ -1,0 +1,14 @@
+id: /nodejs/node
+name: Node.js
+repo: nodejs/node
+description: Node.js is an open-source, cross-platform JavaScript runtime environment
+doc_source:
+  type: repo_path
+  repo: nodejs/node
+  path: doc/api
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

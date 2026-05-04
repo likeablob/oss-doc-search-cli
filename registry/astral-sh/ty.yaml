@@ -1,0 +1,14 @@
+id: /astral-sh/ty
+name: Ty
+repo: astral-sh/ty
+description: A fast Python type checker written in Rust
+doc_source:
+  type: repo_path
+  repo: astral-sh/ty
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT

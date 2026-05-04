@@ -1,0 +1,14 @@
+id: /astral-sh/ruff
+name: Ruff
+repo: astral-sh/ruff
+description: An extremely fast Python linter and code formatter
+doc_source:
+  type: repo_path
+  repo: astral-sh/ruff
+  path: docs
+  extensions:
+    - .md
+  ref: main
+  filters:
+    exclude: []
+license: MIT
