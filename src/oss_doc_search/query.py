@@ -2,17 +2,20 @@ import duckdb
 
 from .config import INDEXES_DIR
 from .embedder import get_embedder
-from .update import update_index
+from .models import Manifest
+from .update import need_download_index, update_index
 
 
-def query_docs(library_id: str, query: str, k: int = 8) -> list[dict]:
+def query_docs(
+    library_id: str, query: str, k: int = 8, manifest: Manifest | None = None
+) -> list[dict]:
     index_name = library_id.strip("/").replace("/", "_")
     index_path = INDEXES_DIR / f"{index_name}.duckdb"
 
-    if not index_path.exists():
-        print(f"Index not found for {library_id}. Downloading...")
+    if not index_path.exists() or need_download_index(library_id, manifest):
+        print(f"Index not found or outdated for {library_id}. Downloading...")
         try:
-            update_index(library_id)
+            update_index(library_id, manifest=manifest)
         except Exception as e:
             raise FileNotFoundError(
                 f"Failed to download index for {library_id}: {e}"
